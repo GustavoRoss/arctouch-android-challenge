@@ -1,14 +1,14 @@
-package com.arctouch.codechallenge.home
+package com.arctouch.codechallenge.ui.home
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.arctouch.codechallenge.R
-import com.arctouch.codechallenge.model.Movie
 import com.arctouch.codechallenge.util.MovieImageUrlBuilder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.ross.domain.model.Movie
 import kotlinx.android.synthetic.main.movie_item.view.*
 
 class HomeAdapter(private val movies: List<Movie>) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
