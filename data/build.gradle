@@ -22,6 +22,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", "API_KEY", "\"1f54bd990f1cdfb230adb312546d765d\""
+        }
     }
 
 }
@@ -32,10 +37,15 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.1.0'
 
+    implementation project(":domain")
+
     // Network
-    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
-    implementation 'com.squareup.retrofit2:converter-moshi:2.6.2'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'
+    api 'com.squareup.retrofit2:retrofit:2.6.2'
+    api 'com.squareup.retrofit2:converter-moshi:2.6.2'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.6.2'
+
+    // Koin
+    implementation "org.koin:koin-core:$koin_version"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

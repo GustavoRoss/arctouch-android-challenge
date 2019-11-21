@@ -1,24 +1,43 @@
 package com.arctouch.codechallenge.ui.home
 
 import android.os.Bundle
+import android.view.View
+import androidx.databinding.DataBindingUtil
 import com.arctouch.codechallenge.R
 import com.arctouch.codechallenge.core.base.BaseActivity
+import com.arctouch.codechallenge.core.base.BaseViewModel
+import com.arctouch.codechallenge.databinding.HomeActivityBinding
+import com.arctouch.codechallenge.util.observe
+import com.ross.domain.models.Movie
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : BaseActivity() {
 
+    override val baseViewModel: BaseViewModel?
+        get() = _viewModel
+
+    private lateinit var binding: HomeActivityBinding
+    private val _viewModel by viewModel<HomeViewModel>()
+    private val adapter by lazy { HomeAdapter() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.home_activity)
+        binding = DataBindingUtil.setContentView(this, R.layout.home_activity)
+        setupRecyclerView()
+        lifecycle.addObserver(_viewModel)
+    }
 
-//        api.upcomingMovies(TmdbApi.API_KEY, TmdbApi.DEFAULT_LANGUAGE, 1, TmdbApi.DEFAULT_REGION)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe {
-//                val moviesWithGenres = it.results.map {
-//                    movie.copy(genres = Cache.genres.filter { movie.genreIds?.contains(it.id) == true })
-//                }
-//                recyclerView.adapter = HomeAdapter(moviesWithGenres)
-//                progressBar.visibility = View.GONE
-//            }
+    private fun setupRecyclerView() {
+        binding.recyclerView.adapter = adapter
+    }
+
+    override fun subscribeUI() {
+        super.subscribeUI()
+        _viewModel.movies.observe(this, ::onMovies)
+    }
+
+    private fun onMovies(movies: List<Movie>) {
+        adapter.movies = movies.toMutableList()
+        binding.progressBar.visibility = View.INVISIBLE
     }
 }

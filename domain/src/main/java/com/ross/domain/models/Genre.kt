@@ -1,3 +1,3 @@
-package com.ross.domain.model
+package com.ross.domain.models
 
 data class Genre(val id: Int, val name: String)

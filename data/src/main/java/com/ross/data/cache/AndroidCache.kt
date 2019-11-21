@@ -1,5 +1,7 @@
 package com.ross.data.cache
 
-class AndroidCache {
+import com.ross.data.boundaries.Cache
+
+class AndroidCache : Cache {
 
 }

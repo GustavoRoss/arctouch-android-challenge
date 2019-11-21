@@ -49,6 +49,11 @@ dependencies {
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-rc02"
+
+
     // Test
     testImplementation 'junit:junit:4.12'
     testImplementation "org.koin:koin-test:$koin_version"

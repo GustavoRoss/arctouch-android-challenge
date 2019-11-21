@@ -1,4 +1,4 @@
-package com.ross.domain.model
+package com.ross.domain.models
 
 data class Movie(
         val id: Int,
