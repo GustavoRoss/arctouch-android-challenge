@@ -9,7 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface TmdbRepository {
+interface TmdbAPI {
 
     companion object {
         const val DEFAULT_LANGUAGE = "pt-BR"

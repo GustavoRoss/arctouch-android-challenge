@@ -7,8 +7,11 @@ import com.arctouch.codechallenge.R
 import com.arctouch.codechallenge.core.base.BaseActivity
 import com.arctouch.codechallenge.core.base.BaseViewModel
 import com.arctouch.codechallenge.databinding.HomeActivityBinding
+import com.arctouch.codechallenge.ui.model.MovieParcelable
+import com.arctouch.codechallenge.ui.movieDetail.MovieDetailActivity
 import com.arctouch.codechallenge.util.observe
 import com.arctouch.codechallenge.util.onLastItemReachedInLinearLayoutManager
+import com.arctouch.codechallenge.util.startActivity
 import com.ross.domain.models.Movie
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,7 +22,7 @@ class HomeActivity : BaseActivity() {
 
     private lateinit var binding: HomeActivityBinding
     private val _viewModel by viewModel<HomeViewModel>()
-    private val adapter by lazy { HomeAdapter() }
+    private val adapter by lazy { HomeAdapter(::openDetailActivity) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +35,12 @@ class HomeActivity : BaseActivity() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.onLastItemReachedInLinearLayoutManager {
             _viewModel.loadMoreMovies()
+        }
+    }
+
+    private fun openDetailActivity(movie: Movie) {
+        startActivity<MovieDetailActivity> {
+            putParcelable(MovieDetailActivity.MOVIE_EXTRA, MovieParcelable.toParcel(movie))
         }
     }
 
