@@ -1,12 +1,12 @@
 package com.ross.domain.useCases
 
-import com.ross.domain.boundaries.iteractors.IGetMoviesWithGenres
+import com.ross.domain.boundaries.iteractors.IGetMoviesWithGenresUseCase
+import com.ross.domain.boundaries.repository.MovieRepository
 import com.ross.domain.models.UpcomingMovies
-import com.ross.domain.repository.MovieRepository
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 
-class GetMoviesWithGenresWithGenresUseCase(private val movieRepository: MovieRepository) : IGetMoviesWithGenres {
+class GetMoviesWithGenresWithGenresUseCaseUseCase(private val movieRepository: MovieRepository) : IGetMoviesWithGenresUseCase {
     override fun getMoviesWithGenres(page: Long): Observable<UpcomingMovies> {
         return Observable.zip(
                 movieRepository.getGenres(),

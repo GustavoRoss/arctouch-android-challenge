@@ -1,7 +1,7 @@
 package com.arctouch.codechallenge.core.di
 
 import com.ross.data.services.MovieServices
-import com.ross.domain.repository.MovieRepository
+import com.ross.domain.boundaries.repository.MovieRepository
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit

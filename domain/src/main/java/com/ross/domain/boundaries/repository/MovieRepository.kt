@@ -1,4 +1,4 @@
-package com.ross.domain.repository
+package com.ross.domain.boundaries.repository
 
 import com.ross.domain.models.Genre
 import com.ross.domain.models.UpcomingMovies

@@ -8,11 +8,11 @@ import com.arctouch.codechallenge.core.base.BaseViewModel
 import com.arctouch.codechallenge.util.extensions.defaultSchedulers
 import com.arctouch.codechallenge.util.extensions.disposedBy
 import com.arctouch.codechallenge.util.extensions.normalize
-import com.ross.domain.boundaries.iteractors.IGetMoviesWithGenres
+import com.ross.domain.boundaries.iteractors.IGetMoviesWithGenresUseCase
 import com.ross.domain.models.Movie
 import io.reactivex.rxkotlin.subscribeBy
 
-class HomeViewModel(private val getMoviesWithGenres: IGetMoviesWithGenres) : BaseViewModel() {
+class HomeViewModel(private val getMoviesWithGenresUseCase: IGetMoviesWithGenresUseCase) : BaseViewModel() {
 
     val movies: LiveData<List<Movie>> get() = _movies
     private val _movies: MutableLiveData<List<Movie>> = MutableLiveData()
@@ -48,7 +48,7 @@ class HomeViewModel(private val getMoviesWithGenres: IGetMoviesWithGenres) : Bas
     }
 
     private fun getMoviesWithGenres(page: Long) {
-        getMoviesWithGenres.getMoviesWithGenres(page)
+        getMoviesWithGenresUseCase.getMoviesWithGenres(page)
                 .defaultSchedulers()
                 .subscribeBy(::onError) { upcomingMovie ->
                     if (totalPages == null) {

@@ -4,5 +4,6 @@ val allModules = listOf(
         viewModelModules,
         useCaseModules,
         retrofitModule,
-        repositoryModules
+        repositoryModules,
+        androidModule
 )
