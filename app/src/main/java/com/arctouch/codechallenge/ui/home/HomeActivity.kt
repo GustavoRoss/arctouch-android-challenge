@@ -8,6 +8,7 @@ import com.arctouch.codechallenge.core.base.BaseActivity
 import com.arctouch.codechallenge.core.base.BaseViewModel
 import com.arctouch.codechallenge.databinding.HomeActivityBinding
 import com.arctouch.codechallenge.util.observe
+import com.arctouch.codechallenge.util.onLastItemReachedInLinearLayoutManager
 import com.ross.domain.models.Movie
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,6 +30,9 @@ class HomeActivity : BaseActivity() {
 
     private fun setupRecyclerView() {
         binding.recyclerView.adapter = adapter
+        binding.recyclerView.onLastItemReachedInLinearLayoutManager {
+            _viewModel.loadMoreMovies()
+        }
     }
 
     override fun subscribeUI() {

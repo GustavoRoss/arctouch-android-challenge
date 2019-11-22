@@ -17,6 +17,6 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     protected open fun onError(throwable: Throwable) {
-
+        // Do something with error
     }
 }

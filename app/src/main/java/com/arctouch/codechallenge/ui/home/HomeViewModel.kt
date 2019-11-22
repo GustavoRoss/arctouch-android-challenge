@@ -11,17 +11,40 @@ import com.ross.domain.boundaries.iteractors.IGetMoviesWithGenres
 import com.ross.domain.models.Movie
 import io.reactivex.rxkotlin.subscribeBy
 
-class HomeViewModel(private val IGetMoviesWithGenres: IGetMoviesWithGenres) : BaseViewModel() {
+class HomeViewModel(private val getMoviesWithGenres: IGetMoviesWithGenres) : BaseViewModel() {
 
     val movies: LiveData<List<Movie>> get() = _movies
     private val _movies: MutableLiveData<List<Movie>> = MutableLiveData()
 
+    private var currentPageCount = 1L
+    private var totalPages: Int? = null
+    private var mergedItems: MutableList<Movie> = mutableListOf()
+
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-        IGetMoviesWithGenres.getMoviesWithGenres(1)
+        getMoviesWithGenres(currentPageCount)
+    }
+
+    private fun getMoviesWithGenres(page: Long) {
+        getMoviesWithGenres.getMoviesWithGenres(page)
                 .defaultSchedulers()
-                .subscribeBy(::onError) {
-                    _movies.postValue(it.movies)
+                .subscribeBy(::onError) { upcomingMovie ->
+                    if (totalPages == null) {
+                        totalPages = upcomingMovie.totalPages
+                    }
+
+                    mergedItems.addAll(upcomingMovie.movies)
+                    _movies.postValue(mergedItems)
                 }.disposedBy(compositeDisposable)
+    }
+
+    fun loadMoreMovies() {
+        currentPageCount++
+
+        val hasPagesToLoad = currentPageCount <= totalPages ?: 0
+
+        if (hasPagesToLoad) {
+            getMoviesWithGenres(currentPageCount)
+        }
     }
 }

@@ -17,9 +17,3 @@ fun <T> Observable<T>.defaultSchedulers(): Observable<T> {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 }
-
-fun <T> Single<T>.defaultSchedulers(): Single<T> {
-    return this
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-}
