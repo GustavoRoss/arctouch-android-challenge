@@ -1,4 +1,4 @@
-package com.arctouch.codechallenge.util
+package com.arctouch.codechallenge.util.extensions
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData

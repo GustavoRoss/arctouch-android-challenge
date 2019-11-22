@@ -1,4 +1,4 @@
-package com.arctouch.codechallenge.util
+package com.arctouch.codechallenge.util.extensions
 
 import android.content.Context
 import android.content.Intent

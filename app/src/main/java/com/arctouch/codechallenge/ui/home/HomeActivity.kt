@@ -9,9 +9,10 @@ import com.arctouch.codechallenge.core.base.BaseViewModel
 import com.arctouch.codechallenge.databinding.HomeActivityBinding
 import com.arctouch.codechallenge.ui.model.MovieParcelable
 import com.arctouch.codechallenge.ui.movieDetail.MovieDetailActivity
-import com.arctouch.codechallenge.util.observe
-import com.arctouch.codechallenge.util.onLastItemReachedInLinearLayoutManager
-import com.arctouch.codechallenge.util.startActivity
+import com.arctouch.codechallenge.util.extensions.observe
+import com.arctouch.codechallenge.util.extensions.observeChanges
+import com.arctouch.codechallenge.util.extensions.onLastItemReachedInLinearLayoutManager
+import com.arctouch.codechallenge.util.extensions.startActivity
 import com.ross.domain.models.Movie
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,7 +29,12 @@ class HomeActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.home_activity)
         setupRecyclerView()
+        setupWatchers()
         lifecycle.addObserver(_viewModel)
+    }
+
+    private fun setupWatchers() {
+        binding.search.observeChanges { _viewModel.onQueryChanges(it) }
     }
 
     private fun setupRecyclerView() {

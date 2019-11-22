@@ -8,8 +8,8 @@ import com.arctouch.codechallenge.core.base.BaseActivity
 import com.arctouch.codechallenge.core.base.BaseViewModel
 import com.arctouch.codechallenge.databinding.ActivityMovieDetailBinding
 import com.arctouch.codechallenge.ui.model.MovieParcelable
-import com.arctouch.codechallenge.util.DEFAULT_BUNDLE_EXTRA
-import com.arctouch.codechallenge.util.observe
+import com.arctouch.codechallenge.util.extensions.DEFAULT_BUNDLE_EXTRA
+import com.arctouch.codechallenge.util.extensions.observe
 import com.ross.domain.models.Movie
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf

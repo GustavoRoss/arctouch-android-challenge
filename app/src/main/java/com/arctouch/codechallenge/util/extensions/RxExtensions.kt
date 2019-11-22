@@ -1,7 +1,6 @@
-package com.arctouch.codechallenge.util
+package com.arctouch.codechallenge.util.extensions
 
 import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

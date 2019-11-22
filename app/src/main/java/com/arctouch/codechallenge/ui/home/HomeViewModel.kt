@@ -5,8 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import com.arctouch.codechallenge.core.base.BaseViewModel
-import com.arctouch.codechallenge.util.defaultSchedulers
-import com.arctouch.codechallenge.util.disposedBy
+import com.arctouch.codechallenge.util.extensions.defaultSchedulers
+import com.arctouch.codechallenge.util.extensions.disposedBy
+import com.arctouch.codechallenge.util.extensions.normalize
 import com.ross.domain.boundaries.iteractors.IGetMoviesWithGenres
 import com.ross.domain.models.Movie
 import io.reactivex.rxkotlin.subscribeBy
@@ -25,6 +26,27 @@ class HomeViewModel(private val getMoviesWithGenres: IGetMoviesWithGenres) : Bas
         getMoviesWithGenres(currentPageCount)
     }
 
+    fun loadMoreMovies() {
+        currentPageCount++
+
+        val hasPagesToLoad = currentPageCount <= totalPages ?: 0
+
+        if (hasPagesToLoad) {
+            getMoviesWithGenres(currentPageCount)
+        }
+    }
+
+    fun onQueryChanges(query: String) {
+        mergedItems.filter {
+            val currentMovieTitleNormalized = it.title.normalize()
+            val normalizedQuery = query.normalize()
+
+            currentMovieTitleNormalized.contains(normalizedQuery)
+        }.also { filteredMovies ->
+            _movies.postValue(filteredMovies)
+        }
+    }
+
     private fun getMoviesWithGenres(page: Long) {
         getMoviesWithGenres.getMoviesWithGenres(page)
                 .defaultSchedulers()
@@ -36,15 +58,5 @@ class HomeViewModel(private val getMoviesWithGenres: IGetMoviesWithGenres) : Bas
                     mergedItems.addAll(upcomingMovie.movies)
                     _movies.postValue(mergedItems)
                 }.disposedBy(compositeDisposable)
-    }
-
-    fun loadMoreMovies() {
-        currentPageCount++
-
-        val hasPagesToLoad = currentPageCount <= totalPages ?: 0
-
-        if (hasPagesToLoad) {
-            getMoviesWithGenres(currentPageCount)
-        }
     }
 }

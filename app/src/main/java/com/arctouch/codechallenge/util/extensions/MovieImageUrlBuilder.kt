@@ -1,4 +1,4 @@
-package com.arctouch.codechallenge.util
+package com.arctouch.codechallenge.util.extensions
 
 import com.ross.data.BuildConfig
 

@@ -4,7 +4,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
 import com.arctouch.codechallenge.R
-import com.arctouch.codechallenge.util.MovieImageUrlBuilder
+import com.arctouch.codechallenge.util.extensions.MovieImageUrlBuilder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.ross.domain.models.Genre
