@@ -6,7 +6,7 @@ import com.ross.domain.models.UpcomingMovies
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 
-class GetMoviesWithGenresWithGenresUseCaseUseCase(private val movieRepository: MovieRepository) : IGetMoviesWithGenresUseCase {
+class GetMoviesWithGenresWithGenresUseCase(private val movieRepository: MovieRepository) : IGetMoviesWithGenresUseCase {
     override fun getMoviesWithGenres(page: Long): Observable<UpcomingMovies> {
         return Observable.zip(
                 movieRepository.getGenres(),
